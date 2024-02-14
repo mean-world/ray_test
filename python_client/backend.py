@@ -1,5 +1,6 @@
 from flask import Flask, request
 
+from kubernetes import client
 #k8s
 import k8s_object as k8s
 
@@ -8,6 +9,18 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return "welcome!"
+
+#check namespace exist
+@app.route("/check_namespace")
+def check():
+    namespace = request.args.get("namespace", "default")
+    v1 = client.CoreV1Api()
+    
+    try:
+        result = v1.read_namespace(namespace)
+        return "ok"
+    except:
+        return "not ok"
 
 #create ray env
 @app.route("/create_ray_env")
