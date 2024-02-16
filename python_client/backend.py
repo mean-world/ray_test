@@ -10,6 +10,14 @@ app = Flask(__name__)
 def hello():
     return "welcome!"
 
+#submit ray job
+@app.route("/submit_job")
+def submit():
+    namespace = request.args.get("namespace", "default")
+    cmd = "RAY_ADDRESS=ray-head-svc:6379 ray job submit --working-dir /test/ -- python3 test.py"
+    cmd = 'hello {name}, hello {text}'.format(name=name, text=text)
+    os.system(cmd)
+
 #check namespace exist
 @app.route("/check_namespace")
 def check():
