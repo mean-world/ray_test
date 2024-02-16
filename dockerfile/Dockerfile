@@ -1,5 +1,6 @@
-#FROM ubuntu:22.04 
-FROM nvcr.io/nvidia/pytorch:22.04-py3
+FROM ubuntu:22.04 
+#cpu only
+#FROM nvcr.io/nvidia/pytorch:22.04-py3 #gpu version
 RUN apt update && apt install -y curl python3 pip
 
 #kubectl 
@@ -8,5 +9,7 @@ RUN chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
 
 #python client
 RUN pip3 install kubernetes
+#ray version 2.9.2
 RUN pip3 install "ray[all]"
+RUN pip3 install torch
 RUN pip3 install pytz
