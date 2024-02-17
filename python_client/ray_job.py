@@ -9,16 +9,17 @@ import torch.nn as nn
 from sklearn import preprocessing
 import tempfile
 import os
+import mlflow
 
 
 import ray.train
-from ray.train import ScalingConfig
+from ray.train import ScalingConfig ,Checkpoint
 from ray.train.torch import TorchTrainer
 
 import model as model_fw
-lstm_model = model_fw.LSTM_model(16)
 
-# ray.init(_node_ip_address='172.17.0.3')
+
+# RAY_ADDRESS=ray-head-svc:6379 ray job submit --working-dir /test/ -- python3 test.py
 
 #custom dataset class
 class data_set(Dataset):
@@ -106,7 +107,7 @@ def train_func_per_worker(config: Dict):
     train_dataloader = ray.train.torch.prepare_data_loader(train_dataloader)
     test_dataloader = ray.train.torch.prepare_data_loader(test_dataloader)
 
-    model = lstm_model
+    model = model_fw.LSTM_model(16)
 
     # [2] Prepare and wrap your model with DistributedDataParallel
     # Move the model to the correct GPU/CPU device
@@ -136,13 +137,34 @@ def train_func_per_worker(config: Dict):
 
                 test_loss += loss.item()
 
-        test_loss /= len(test_dataloader)
+        # test_loss /= len(test_dataloader)
         
 
         # [3] Report metrics to Ray Train
         # ===============================
-        torch.save(model.module.state_dict(),"/root/model.pt")
-        ray.train.report(metrics={"loss": test_loss}, checkpoint=ray.train.Checkpoint.from_directory("/root"))
+        with tempfile.TemporaryDirectory() as temp_checkpoint_dir:
+            checkpoint = None
+
+            should_checkpoint = epoch % config.get("checkpoint_freq", 1) == 0
+            # In standard DDP training, where the model is the same across all ranks,
+            # only the global rank 0 worker needs to save and report the checkpoint
+            if ray.train.get_context().get_world_rank() == 0 and should_checkpoint:
+                torch.save(
+                    model.module.state_dict(),  # NOTE: Unwrap the model.
+                    os.path.join(temp_checkpoint_dir, "model.pt"),
+                )
+                checkpoint = Checkpoint.from_directory(temp_checkpoint_dir)
+                mlflow.set_tracking_uri("http://mlflow-dashboard-svc:8080")
+                mlflow.set_experiment("test1")
+                with mlflow.start_run(run_name="user"):
+                    mlflow.pytorch.log_model(model, "model")
+                    # # mlflow.log_param("epochs", epochs)
+                    # mlflow.log_params({"epochs": epochs, "lr": lr, "batch_size": batch_size})
+                    # mlflow.log_metric("test loss", test_loss)
+
+            ray.train.report(metrics={"loss": test_loss}, checkpoint=checkpoint)
+
+        # ray.train.report(metrics={"loss": test_loss})
         
 
 
@@ -170,11 +192,13 @@ def train_fashion_mnist(num_workers=2, use_gpu=False):
     # =============================================
     result = trainer.fit()
     print(f"Training result: {result}")
-    print(result)
+    # print(result)
+
 
 
 
 
 
 train_fashion_mnist(num_workers=1, use_gpu=False)
+
 
