@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 #cpu only
 #FROM nvcr.io/nvidia/pytorch:22.04-py3 #gpu version
 RUN apt update && apt install -y curl python3 pip
+RUN apt install -y get
 
 #kubectl 
 RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -13,3 +14,5 @@ RUN pip3 install kubernetes
 RUN pip3 install "ray[all]"
 RUN pip3 install torch
 RUN pip3 install pytz
+RUN pip3 install mlflow
+RUN apt install -y git
