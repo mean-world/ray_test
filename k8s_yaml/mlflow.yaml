@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    mlflow-type: server
+  name: mlflow
+  namespace: ray
+spec:
+  containers:
+  - command: ["mlflow"]
+    args: ["server", "--host=0.0.0.0", --port=8080]
+    image: ghcr.io/mlflow/mlflow
+    name: mlflow
+    ports:
+    - containerPort: 8080
+
+  restartPolicy: Always
+
+#dashboard-mlflow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlflow-dashboard-svc
+  namespace: ray
+spec:
+  selector:
+    mlflow-type: server
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: dashboard
