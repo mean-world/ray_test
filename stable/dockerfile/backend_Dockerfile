@@ -1,0 +1,29 @@
+FROM ubuntu:22.04 
+
+RUN apt update && apt install -y curl python3 pip
+
+#kubectl 
+RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+
+#python client
+RUN pip3 install kubernetes
+
+
+RUN pip3 install flask
+RUN pip3 install Flask-Cors
+RUN pip3 install "ray[all]"
+
+RUN mkdir backend
+WORKDIR /backend
+RUN mkdir test
+RUN mkdir test/model
+RUN mkdir test/custom_model
+
+COPY py_file/backend.py /backend
+COPY py_file/k8s_object.py /backend
+COPY py_file/ray_job.py /backend/test
+
+COPY py_file/model_LSTM.py /backend/test/model
+COPY py_file/model_CNN.py /backend/test/model
+COPY py_file/model_MLP.py /backend/test/model

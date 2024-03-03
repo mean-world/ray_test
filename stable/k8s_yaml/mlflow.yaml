@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mlflow-system
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    mlflow-type: server
+  name: mlflow
+  namespace: mlflow-system
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: mlflow-pvc
+  containers:
+  - command: ["mlflow"]
+    args: ["server", "--host=0.0.0.0", --port=8080, "--backend-store-uri=file:/tmp/mlflow"]
+    image: ghcr.io/mlflow/mlflow
+    name: mlflow
+    ports:
+    - containerPort: 8080
+    volumeMounts:
+        - mountPath: /tmp/mlflow
+          name: task-pv-storage
+
+  restartPolicy: Always
+
+#dashboard-mlflow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlflow-dashboard-svc
+  namespace: mlflow-system
+spec:
+  type: NodePort
+  selector:
+    mlflow-type: server
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: dashboard
+    nodePort: 30001
+
+#mlflow-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mlflow-pv
+  namespace: mlflow-system
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  hostPath:
+    path: "/tmp"
+
+#mlflow-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mlflow-pvc
+  namespace: mlflow-system
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+#ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mlflow-ingress
+  namespace: mlflow-system
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "mlflow-dashboard.localdev.me" #"mlflow-dashboard.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mlflow-dashboard-svc
+            port:
+              number: 8080

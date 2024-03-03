@@ -1,0 +1,6 @@
+tqdm yfinance scikit-learn mlflow gitpython
+RAY_ADDRESS=ray-head-svc:6379 ray job submit --working-dir /test/ -- python3 test.py
+RAY_ADDRESS=ray-head-svc:6379 ray job submit --working-dir /test/  pip3 install tqdm yfinance scikit-learn mlflow gitpython
+
+kubectl port-forward service/mlflow-dashboard-svc   8080:8080 -n ray
+kubectl port-forward service/ray-dashboard-svc  8265:8265 -n ray
