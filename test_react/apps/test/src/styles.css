@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+
+.setting-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dashboard-section {
+  width: 100%;
+  flex: 1 0 300px;
+  margin-top: 20px;
+  padding: 20px 20px;
+  background-color: #caeaff;
+  border: 1px solid #a3d9ff;
+  border-radius: 12px;
+  box-shadow: 0px 0px 6px 4px #bce3fe;
+  position: relative;
+}
+
+.dashboard-section .title {
+  margin: 0px;
+}
+
+.section1 {
+  background-color: #caeaff;
+  border: 1px solid #a3d9ff;
+  box-shadow: 0px 0px 6px 4px #bce3fe;
+}
+
+.section2 {
+  background-color: #fff6ca;
+  border: 1px solid #ffe2a3;
+  box-shadow: 0px 0px 6px 4px #fee2bc;
+}
+
+.disable {
+  background-color: #e5e5e5;
+  border: 1px solid #d4d4d4;
+  box-shadow: 0px 0px 6px 4px #d0d0d0;
+}
+
+.disable-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

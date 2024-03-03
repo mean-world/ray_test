@@ -1,0 +1,109 @@
+{
+  "name": "frontend-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/test/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "swc",
+        "outputPath": "dist/app",
+        "index": "apps/test/src/index.html",
+        "baseHref": "/",
+        "main": "apps/test/src/main.tsx",
+        "tsConfig": "apps/test/tsconfig.app.json",
+        "assets": [
+          "apps/test/src/favicon.ico",
+          "apps/test/src/assets"
+        ],
+        "styles": [
+          "apps/test/src/styles.css"
+        ],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/test/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/test/src/environments/environment.ts",
+              "with": "apps/test/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "frontend-app:build",
+        "hmr": true,
+        "proxyConfig": "apps/test/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "frontend-app:build:development"
+        },
+        "production": {
+          "buildTarget": "frontend-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/test/src"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectName}"
+      ],
+      "options": {
+        "jestConfig": "apps/test/jest.config.ts"
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "engine": "docker",
+        "platforms": [
+          "linux/amd64"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": [
+    "backend-app"
+  ]
+}
