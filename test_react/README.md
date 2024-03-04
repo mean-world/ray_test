@@ -14,5 +14,5 @@ npm i
 npm run container
 # exit container 
 exit
-docker build -t 
+docker build -t pear1798/test_react:stable .
 ```
