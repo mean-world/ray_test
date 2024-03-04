@@ -13,10 +13,6 @@ This project aims to establish a distributed training platform running on a Kube
 
 This project will allow users to submit training jobs through a simple frontend interface, with the system automatically allocating resources on the Kubernetes cluster, utilizing Ray for distributed training, and leveraging MLflow for experiment tracking and model saving. Through the user interface provided by React, users can monitor training progress, view experiment results.
 
-## Note
-
-Please note that the current setup is for CPU testing. Future iterations of the project will include support for GPU-based distributed training.
-
 ## Purpose
 
 This project aims to provide a comprehensive, scalable machine learning development and deployment solution, enabling users to conduct model training and management more easily.
