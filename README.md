@@ -93,7 +93,21 @@ kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 
 
 ## Execution Results
 
-Describe the expected outcomes or any important details about the execution of the project.
+Upon logging in, users are directed to the dashboard interface, where they can access different functionalities based on their user status:
+
+### Login Interface
+- **Functionality:** Users can enter their username and click the login button to access the dashboard page.
+- **Image:** Image A depicts the login interface.
+
+### Dashboard Interface
+- **Functionality:** The dashboard is divided into two sections, displaying different content based on the user's status:
+  - **New User:** The left section displays the "Create Distributed Training Environment" feature.
+  - **Existing User:** The right section displays the "Submit Training" feature. Additionally, it opens the integrated Ray Dashboard and MLflow Dashboard for viewing training environments and model records.
+- **Images:** 
+  - Image B shows the "Create Distributed Training Environment" feature on the left side of the dashboard interface.
+  - Image C shows the "Submit Training" feature on the right side of the dashboard interface.
+
+## Image A: Login Interface
 ![image](https://github.com/mean-world/ray_test/assets/87417974/569c0654-b621-4dc1-80e1-8bfc4a0ac2a6)
 
 
