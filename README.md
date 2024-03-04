@@ -98,7 +98,7 @@ Upon logging in, users are directed to the dashboard interface, where they can a
 ### Login Interface
 - **Functionality:** Users can enter their username and click the login button to access the dashboard page.
 - **Image:** Image A depicts the login interface.
-- # <p align="center">Image A: Login Interface</p>
+# <p align="center">Image A: Login Interface</p>
 ![Login Interface](https://github.com/mean-world/ray_test/assets/87417974/569c0654-b621-4dc1-80e1-8bfc4a0ac2a6)
 
 ### Dashboard Interface
@@ -109,7 +109,11 @@ Upon logging in, users are directed to the dashboard interface, where they can a
   - Image B shows the "Create Distributed Training Environment" feature on the left side of the dashboard interface.
   - Image C shows the "Submit Training" feature on the right side of the dashboard interface.
 
+# <p align="center">Image B: Dashboard Interface - Left Section</p>
+![Dashboard Interface - Left Section](https://github.com/mean-world/ray_test/assets/87417974/1ca4178a-3ac6-40bc-b7bf-480e685a6bcf)
 
+# <p align="center">Image C: Dashboard Interface - Right Section</p>
+![Dashboard Interface - Right Section](https://github.com/mean-world/ray_test/assets/87417974/11509c55-7368-4b8b-a1d1-93ad09d48023)
 
 
 ## Demo Video
