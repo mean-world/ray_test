@@ -73,9 +73,22 @@ Once you have installed these components, you can proceed with running the proje
 To run the project, follow the steps below:
 
 ### 1. Deploy Frontend
-
 Run the following command to deploy the frontend:
+```
+kubectl apply -f stable/k8s_yaml/frontend.yaml
+```
 
+### 2. Deploy Backend Server
+Use the following command to deploy the backend server:
+```
+kubectl apply -f stable/k8s_yaml/backend.yaml
+```
+
+### 3. Deploy MLflow Server
+Deploy the MLflow server using the command:
+```
+kubectl apply -f stable/k8s_yaml/mlflow.yaml
+```
 
 ## Execution Results
 
