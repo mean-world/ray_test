@@ -56,8 +56,11 @@ Deploy nginx-ingress controller using the provided manifest:
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
 ```
 
-Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
+### 5.
 [backend & ray node image](./stable/dockerfile)
+
+
+Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
 
 ## How to Run
 
