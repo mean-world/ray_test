@@ -58,7 +58,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ### 5. Rebuilding Images
 
-(1). [backend server & ray node image](./stable/dockerfile)
+(1). [backend server & ray node image](./stable/dockerfile) \n
 (2). [frontend image](./test_react)
 
 
