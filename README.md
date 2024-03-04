@@ -16,7 +16,33 @@ This project will allow users to submit training jobs through a simple frontend 
 ## Purpose
 
 This project aims to provide a comprehensive, scalable machine learning development and deployment solution, enabling users to conduct model training and management more easily.
+## Table of Contents
 
-## Note
+1. [Preparation](#preparation)
+2. [How to Run](#how-to-run)
+3. [Execution Results](#execution-results)
+4. [Demo Video](#demo-video)
+5. [Future Directions](#future-directions)
+
+## Preparation
+
+Describe any prerequisites or setup required before running the project.
+
+## How to Run
+
+Provide instructions on how to run the project locally or deploy it on a Kubernetes cluster.
+
+## Execution Results
+
+Describe the expected outcomes or any important details about the execution of the project.
+
+## Demo Video
+
+Link to a video demonstrating the project in action.
+
+## Future Directions
+
+Discuss potential future enhancements or directions for the project.## Note
 
 Please note that the current setup is for CPU testing. Future iterations of the project will include support for GPU-based distributed training.
+
