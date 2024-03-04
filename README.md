@@ -85,6 +85,11 @@ Deploy the MLflow server using the command:
 ```
 kubectl apply -f stable/k8s_yaml/mlflow.yaml
 ```
+### 4. Start Port-Forwarding
+tart port-forwarding to access the application:
+```
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
+```
 
 ## Execution Results
 
