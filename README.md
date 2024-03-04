@@ -57,7 +57,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
-[backend & ray node image](./stable/dockerflie)
+[backend & ray node image](./stable/dockerfile)
 
 ## How to Run
 
