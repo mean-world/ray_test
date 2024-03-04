@@ -122,7 +122,7 @@ Upon logging in, users are directed to the dashboard interface, where they can a
 ![Dashboard Interface - Right Section](https://github.com/mean-world/ray_test/assets/87417974/11509c55-7368-4b8b-a1d1-93ad09d48023)
 
 ### Note: Training Tasks
-All training tasks use the same basic stock prediction model. If you wish to modify the model, please refer to [path](./stable/dockerfile/py_file) . 
+All training tasks use the same basic stock prediction model. If you wish to modify the model, please refer to [here](./stable/dockerfile/py_file) . 
 
 ## Demo Video
 
