@@ -6,7 +6,7 @@
     "start": "nx run-many --target=serve --parallel",
     "build": "nx clear-cache; nx build frontend-app",
     "test": "nx test",
-    "container": "nx container frontend-app --tags=pear1798/test_react:v11",
+    "container": "nx container frontend-app --tags=pear1798/test_react:stable",
     "format": "nx format:write"
   },
   "private": true,
