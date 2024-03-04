@@ -40,6 +40,25 @@ Follow the installation guide provided by the cri-o project on GitHub:
 
 [Install cri-o](https://github.com/cri-o/cri-o)
 
+### 3. Install CNI (Calico)
+
+Deploy Calico for networking by applying the manifest:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/calico.yaml
+```
+
+### 4. Install Ingress Controller (nginx-ingress)
+
+Deploy nginx-ingress controller using the provided manifest:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
+```
+
+Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
+This structure provides clear instructions for installing the necessary dependencies and Kubernetes components before running your project. Users can follow these steps sequentially to set up their environment correctly.
+
 ## How to Run
 
 Provide instructions on how to run the project locally or deploy it on a Kubernetes cluster.
