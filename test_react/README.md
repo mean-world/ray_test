@@ -6,4 +6,7 @@ To build the frontend image, follow the steps below:
 npm i
 npm run container
 ```
-## 
+2. If you don't have npm environment:
+```
+
+```
