@@ -109,8 +109,8 @@ Upon logging in, users are directed to the dashboard interface, where they can a
 
 ### Dashboard Interface
 - **Functionality:** The dashboard is divided into two sections, displaying different content based on the user's status:
-  - **New User:** The left section displays the "Create Distributed Training Environment" feature.
-  - **Existing User:** The right section displays the "Submit Training" feature. Additionally, it opens the integrated Ray Dashboard and MLflow Dashboard for viewing training environments and model records.
+- **New User:** The left section displays the "Create Distributed Training Environment" feature. This feature allows creating a Ray distributed environment in Kubernetes cluster specifically for the new user.
+- **Existing User:** The right section displays the "Submit Training" feature and opens the Ray Dashboard (personal use) and MLflow Dashboard (shared). Users can choose to use default provided models or upload their own model data for training submission. The submitted training will be sent to Ray, and upon completion, the model and hyperparameters will be sent to MLflow for storage.
 - **Images:** 
   - Image B shows the "Create Distributed Training Environment" feature on the left side of the dashboard interface.
   - Image C shows the "Submit Training" feature on the right side of the dashboard interface.
