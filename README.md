@@ -130,7 +130,9 @@ Link to a video demonstrating the project in action.
 
 ## Future Directions
 
-Discuss potential future enhancements or directions for the project.## Note
+Discuss potential future enhancements or directions for the project.
+
+## Note
 
 Please note that the current setup is for CPU testing. Future iterations of the project will include support for GPU-based distributed training.
 
