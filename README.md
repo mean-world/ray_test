@@ -91,6 +91,12 @@ tart port-forwarding to access the application:
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 ```
 
+### 5. Connect to Frontend Webpage
+To connect to the frontend webpage, use the following URL:
+```
+http://third-party-platform.localdev.me:8080
+```
+
 ## Execution Results
 
 Upon logging in, users are directed to the dashboard interface, where they can access different functionalities based on their user status:
