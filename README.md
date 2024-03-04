@@ -26,7 +26,19 @@ This project aims to provide a comprehensive, scalable machine learning developm
 
 ## Preparation
 
-Describe any prerequisites or setup required before running the project.
+Before running the project, ensure you have the necessary dependencies and Kubernetes components installed. Follow the steps below for installation:
+
+### 1. Install kubeadm
+
+Refer to the official Kubernetes documentation for detailed instructions on installing kubeadm:
+
+[Install kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
+### 2. Install cri-o
+
+Follow the installation guide provided by the cri-o project on GitHub:
+
+[Install cri-o](https://github.com/cri-o/cri-o)
 
 ## How to Run
 
