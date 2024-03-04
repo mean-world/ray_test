@@ -57,7 +57,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
-This structure provides clear instructions for installing the necessary dependencies and Kubernetes components before running your project. Users can follow these steps sequentially to set up their environment correctly.
 
 ## How to Run
 
