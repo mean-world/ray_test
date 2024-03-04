@@ -18,6 +18,11 @@ This project will allow users to submit training jobs through a simple frontend 
 This project aims to provide a comprehensive, scalable machine learning development and deployment solution, enabling users to conduct model training and management more easily.
 ## Table of Contents
 
+## Note
+
+Please note that the current setup is for CPU testing. Future iterations of the project will include support for GPU-based distributed training.
+
+
 1. [Preparation](#preparation)
 2. [How to Run](#how-to-run)
 3. [Execution Results](#execution-results)
