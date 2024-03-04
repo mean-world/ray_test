@@ -89,6 +89,8 @@ kubectl apply -f stable/k8s_yaml/mlflow.yaml
 ## Execution Results
 
 Describe the expected outcomes or any important details about the execution of the project.
+![image](https://github.com/mean-world/ray_test/assets/87417974/569c0654-b621-4dc1-80e1-8bfc4a0ac2a6)
+
 
 ## Demo Video
 
