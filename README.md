@@ -58,8 +58,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ### 5. Rebuilding Images
 
-(1). [backend server & ray node image](./stable/dockerfile) 
-(2). [frontend image](./test_react)
+1. [backend server & ray node image](./stable/dockerfile) 
+2. [frontend image](./test_react)
 
 
 Once you have installed these components, you can proceed with running the project on your Kubernetes cluster.
