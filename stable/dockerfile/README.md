@@ -5,5 +5,5 @@ docker build -t ray_node:cpuV3 -f Dockerfile .
 ```
 ## backend server
 ```
-docker build -t backend:your_version -f Dockerfile .
+docker build -t backend:your_test8 -f backend_Dockerfile .
 ```
