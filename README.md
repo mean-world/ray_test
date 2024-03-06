@@ -130,7 +130,9 @@ Link to a video demonstrating the project in action.
 
 ## Future Directions
 
-Discuss potential future enhancements or directions for the project.
+1. Improve Ingress Configuration: Configure Ingress to use a real domain name, enabling the service to be accessed beyond local environments, thus enhancing its availability and accessibility.
+
+2. Optimize GPU Resource Management Strategy: Future plans include implementing more effective management of GPU resources. Currently, the plan is to use nodeSelector to restrict GPU Worker Pods to deploy only on nodes with GPUs and utilize podAffinity to minimize the chances of deploying GPU Worker Pods on the same node, thereby improving the utilization and allocation efficiency of GPU resources. This enhancement will be verified and implemented in future developments.
 
 ## Note
 
