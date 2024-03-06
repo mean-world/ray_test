@@ -126,7 +126,7 @@ All training tasks use the same basic stock prediction model. If you wish to mod
 
 ## Demo Video
 
-Link to a video demonstrating the project in action.
+[Demo Video Link](https://youtu.be/9hoyLFHMxHQ)
 
 ## Future Directions
 
