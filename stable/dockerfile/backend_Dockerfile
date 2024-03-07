@@ -12,18 +12,21 @@ RUN pip3 install kubernetes
 
 RUN pip3 install flask
 RUN pip3 install Flask-Cors
-RUN pip3 install "ray[all]"
+#RUN pip3 install "ray[all]"
 
 RUN mkdir backend
 WORKDIR /backend
+RUN mkdir backup
 RUN mkdir test
 RUN mkdir test/model
 RUN mkdir test/custom_model
 
 COPY py_file/backend.py /backend
 COPY py_file/k8s_object.py /backend
-COPY py_file/ray_job.py /backend/test
+COPY py_file/ray_job.py /backend/backup
 
 COPY py_file/model_LSTM.py /backend/test/model
 COPY py_file/model_CNN.py /backend/test/model
 COPY py_file/model_MLP.py /backend/test/model
+
+RUN pip3 install "ray[all]"
