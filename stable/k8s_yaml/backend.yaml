@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: pear1798/backend:stableCpu
+        image: pear1798/backend:stableCpuV1
         ports:
         - containerPort: 5000
         command: ["python3"]
