@@ -17,8 +17,10 @@ def hello():
 #submit ray job
 @app.route("/submit_job",methods=['POST'])
 def submit():
-    name = request.args.get("username", "default")
-    worker_num = request.args.get("worker", 1)
+    #reload ray_job.py from test/backup/
+    os.system("cp backup/ray_job.py test/ray_job.py")
+    name = str(request.args.get("username", "default"))
+    worker_num = str(request.args.get("worker", 1))
     #worker num
     os.system("sed -i 's\\num_workers=1\\num_workers={worker}\g' test/ray_job.py".format(worker=worker_num))
     os.system("sed -i 's\\username\\{name}\g' test/ray_job.py".format(name=name))
@@ -38,23 +40,26 @@ def submit():
             os.system(cmd)
             #retain
             os.system("sed -i 's\import model.{model_name} as model_fw\import model.model as model_fw\g' test/ray_job.py".format(model_name=model))
-        #retain
-        os.system("sed -i 's\\num_workers={worker}\\num_workers=1\g' test/ray_job.py".format(worker=worker_num))
-        os.system("sed -i 's\\{name}\\username\g' test/ray_job.py".format(name=name))
-
-        
 
     try:
         file = request.files["file"]
         if file.filename != "":
             file.save("test/custom_model/"+file.filename)
         job_submit(name, "custom")
+
+        #retain
+        os.system("sed -i 's\\num_workers={worker}\\num_workers=1\g' test/ray_job.py".format(worker=worker_num))
+        os.system("sed -i 's\\{name}\\username\g' test/ray_job.py".format(name=name))
         
         return "custom"
     except:
         model = request.args.get("modelName", "model")
         print(model)
         job_submit(name, "default", model)
+
+        #retain
+        os.system("sed -i 's\\num_workers={worker}\\num_workers=1\g' test/ray_job.py".format(worker=worker_num))
+        os.system("sed -i 's\\{name}\\username\g' test/ray_job.py".format(name=name))
 
         return "default"
 
