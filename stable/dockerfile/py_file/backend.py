@@ -30,36 +30,22 @@ def submit():
         if type=="custom":
             os.system("sed -i 's\import model.model as model_fw\import model.custom_model as model_fw\g' test/ray_job.py")
             os.system(cmd)
-            #retain
-            os.system("sed -i 's\import model.custom_model as model_fw\import model.model as model_fw\g' test/ray_job.py")
             
-
         else:
             model = "model_" + model
             os.system("sed -i 's\import model.model as model_fw\import model.{model_name} as model_fw\g' test/ray_job.py".format(model_name=model))
             os.system(cmd)
-            #retain
-            os.system("sed -i 's\import model.{model_name} as model_fw\import model.model as model_fw\g' test/ray_job.py".format(model_name=model))
 
     try:
         file = request.files["file"]
         if file.filename != "":
             file.save("test/custom_model/"+file.filename)
         job_submit(name, "custom")
-
-        #retain
-        os.system("sed -i 's\\num_workers={worker}\\num_workers=1\g' test/ray_job.py".format(worker=worker_num))
-        os.system("sed -i 's\\{name}\\username\g' test/ray_job.py".format(name=name))
         
         return "custom"
     except:
         model = request.args.get("modelName", "model")
-        print(model)
         job_submit(name, "default", model)
-
-        #retain
-        os.system("sed -i 's\\num_workers={worker}\\num_workers=1\g' test/ray_job.py".format(worker=worker_num))
-        os.system("sed -i 's\\{name}\\username\g' test/ray_job.py".format(name=name))
 
         return "default"
 
