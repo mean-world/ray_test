@@ -12,7 +12,6 @@ RUN pip3 install kubernetes
 
 RUN pip3 install flask
 RUN pip3 install Flask-Cors
-#RUN pip3 install "ray[all]"
 
 RUN mkdir backend
 WORKDIR /backend
@@ -29,4 +28,5 @@ COPY py_file/model_LSTM.py /backend/test/model
 COPY py_file/model_CNN.py /backend/test/model
 COPY py_file/model_MLP.py /backend/test/model
 
+#ray version 2.9.3
 RUN pip3 install "ray[all]"
