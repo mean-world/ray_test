@@ -10,7 +10,7 @@ RUN chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
 
 #python client
 RUN pip3 install kubernetes
-#ray version 2.9.2
+#ray version 2.9.3
 RUN pip3 install "ray[all]"
 RUN pip3 install torch pytz mlflow tqdm scikit-learn  gitpython 
 RUN pip3 install yfinance
