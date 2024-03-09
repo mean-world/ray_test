@@ -8,7 +8,7 @@ config.load_incluster_config()
 #create ray heads
 
 class kubernetes_control():
-    def __init__(self, namespace="default", ray_image="pear1798/ray-test:cpuV3"):
+    def __init__(self, namespace="default", ray_image="pear1798/ray-test:cpuV4"):
         self.namespace = namespace #user name
         self.image = ray_image
 
