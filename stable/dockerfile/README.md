@@ -7,3 +7,7 @@ docker build -t pear1798/ray_node:cpuV3 -f Dockerfile .
 ```
 docker build -t pear1798/backend:your_test8 -f backend_Dockerfile .
 ```
+# note 
+```
+ray version 2.9.3
+```
