@@ -155,10 +155,15 @@ def train_func_per_worker(config: Dict):
                     os.path.join(temp_checkpoint_dir, "model.pt"),
                 )
                 checkpoint = Checkpoint.from_directory(temp_checkpoint_dir)
+                # model_backup = model_fw.model()
+                # model_backup.load_state_dict(torch.load(os.path.join(temp_checkpoint_dir, "model.pt")))
+                
                 mlflow.set_tracking_uri("http://mlflow-dashboard-svc.mlflow-system:8080")
                 mlflow.set_experiment(name)
                 with mlflow.start_run(run_name="user"):
                     mlflow.pytorch.log_model(model, "model")
+                    # mlflow.pytorch.save_model(pytorch_model=model_backup)
+                    mlflow.log_artifacts(os.path.join(temp_checkpoint_dir, "model.pt"), artifact_path=name)
                     mlflow.log_params({"epochs": epochs, "lr": lr, "batch_size": batch_size})
                     mlflow.log_metric("test loss", test_loss)
 
