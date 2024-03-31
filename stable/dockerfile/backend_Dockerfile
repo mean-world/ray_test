@@ -29,4 +29,4 @@ COPY py_file/model_CNN.py /backend/test/model
 COPY py_file/model_MLP.py /backend/test/model
 
 #ray version 2.9.3
-RUN pip3 install "ray[all]"
+RUN pip3 install "ray[all]==2.9.3"

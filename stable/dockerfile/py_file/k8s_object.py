@@ -8,9 +8,10 @@ config.load_incluster_config()
 #create ray heads
 
 class kubernetes_control():
-    def __init__(self, namespace="default", ray_image="pear1798/ray-test:cpuV4"):
+    def __init__(self, namespace="default", ray_image="pear1798/ray-test:cpuV4", driver_type="cpu"):
         self.namespace = namespace #user name
         self.image = ray_image
+        self.driver_type = driver_type
 
     #create ray worker
     def create_deployment(self, cpu, memory, replicas_num):
@@ -25,7 +26,8 @@ class kubernetes_control():
             limits={"cpu": cpu, "memory": memory},
         ),
         command = ["ray"],
-        args = ["start", "--address=ray-head-svc:6379", "--block", cpu_args, memory_args]
+        args = ["start", "--address=ray-head-svc:6379", "--block", cpu_args, memory_args],
+        env=[client.V1EnvVar(name="driver_type", value=self.driver_type)],
         )
 
         init_container = client.V1Container(
@@ -83,7 +85,7 @@ class kubernetes_control():
 
     #create ray head
     def create_pod(self):
-        #container
+        #container ray 
         container = client.V1Container(
             name="ray-head",
             image=self.image,
@@ -92,12 +94,30 @@ class kubernetes_control():
                 requests={"cpu": "4", "memory": "4G"},
                 limits={"cpu": "4", "memory": "4G"},
             ),
+            env=[client.V1EnvVar(name="driver_type", value=self.driver_type)],
             command = ["ray"],
-            args = ["start", "--block", "--head", "--dashboard-host=0.0.0.0", "--num-cpus=4", "--memory=4000000000"]
+            args = ["start", "--block", "--head", "--dashboard-host=0.0.0.0", "--num-cpus=4", "--memory=4000000000"],
+            volume_mounts=[client.V1VolumeMount(mount_path="/root/ray_results",name="cache-volume")],
+        )
+
+        #container ray 
+        container_2 = client.V1Container(
+            name="jupyter",
+            working_dir="/root/ray_results",
+            image="pear1798/jupyter_test:v2",
+            ports=[client.V1ContainerPort(container_port=8888)],
+            resources=client.V1ResourceRequirements(
+                requests={"cpu": "2", "memory": "2G"},
+                limits={"cpu": "2", "memory": "2G"},
+            ),
+            env=[client.V1EnvVar(name="driver_type", value=self.driver_type), client.V1EnvVar(name="RAY_ADDRESS", value="127.0.0.1:6379")],
+            command = ["jupyter"],
+            args = ["lab", "--no-browser", "--port=8888", "--allow-root", "--autoreload", "--ip=0.0.0.0"],
+            volume_mounts=[client.V1VolumeMount(mount_path="/root/ray_results",name="cache-volume")],
         )
 
         #spec
-        spec = client.V1PodSpec(containers=[container], restart_policy="Always")
+        spec = client.V1PodSpec(containers=[container, container_2], restart_policy="Always", volumes=[client.V1Volume(empty_dir=client.V1EmptyDirVolumeSource(),name="cache-volume")])
 
         #pod
         pod = client.V1Pod(
@@ -142,6 +162,23 @@ class kubernetes_control():
 
         api_instance.create_namespaced_service(namespace=self.namespace, body=service)
 
+    #create jupyter dashboard
+    def create_service_jupyter_dashboard(self):
+        api_instance = client.CoreV1Api()
+
+        service = client.V1Service()
+
+        service.api_version = "v1"
+        service.kind = "Service"
+        service.metadata = client.V1ObjectMeta(name="jupyter-dashboard-svc")
+
+        spec = client.V1ServiceSpec()
+        spec.selector = {"ray-type": "head"}
+        spec.ports = [client.V1ServicePort(protocol="TCP", port=8888, target_port=8888, name="jupyter")]
+        service.spec = spec
+
+        api_instance.create_namespaced_service(namespace=self.namespace, body=service)
+
     #use user name to create namespace 
     def create_namespace(self):
         v1 = client.CoreV1Api()
@@ -173,6 +210,42 @@ class kubernetes_control():
                                         number=8265,
                                     ),
                                     name="ray-dashboard-svc")
+                                )
+                            )
+                        ]
+                    )
+                )]
+            )
+        )
+
+        networking_v1_api.create_namespaced_ingress(
+            namespace=self.namespace,
+            body=body
+        )
+
+    #create jupyter ingress
+    def create_jupyter_ingress(self):
+        host = self.namespace + "-jupyter.localdev.me"
+        networking_v1_api = client.NetworkingV1Api()
+
+        body = client.V1Ingress(
+            api_version="networking.k8s.io/v1",
+            kind="Ingress",
+            metadata=client.V1ObjectMeta(name="jupyter-ingress"),
+            spec=client.V1IngressSpec(
+                ingress_class_name="nginx",
+                rules=[client.V1IngressRule(
+                    host=host,
+                    http=client.V1HTTPIngressRuleValue(
+                        paths=[client.V1HTTPIngressPath(
+                            path="/",
+                            path_type="Prefix",
+                            backend=client.V1IngressBackend(
+                                service=client.V1IngressServiceBackend(
+                                    port=client.V1ServiceBackendPort(
+                                        number=8888,
+                                    ),
+                                    name="jupyter-dashboard-svc")
                                 )
                             )
                         ]

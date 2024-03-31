@@ -348,6 +348,21 @@ export function Dashboard(props: DashboardProps) {
             marginBottom: '50px'
           }}
         ></iframe>
+        <iframe
+          title="jupyter"
+          //改成變數
+          src={`http://${location.state?.namespace}-jupyter.localdev.me:8080`}
+          style={{
+            width: '100%',
+            height: '150%',
+            border: 0,
+            boxShadow: '0px 0px 6px 4px #ADD8E6',
+            borderRadius: '8px',
+            display: create ? 'none' : 'block',
+            marginTop: '50px',
+            marginBottom: '50px'
+          }}
+        ></iframe>
       </div>
     </Flex>
   );
