@@ -134,7 +134,6 @@ Upon logging in, users are directed to the dashboard interface, where they can a
 
 - **New Feature:** Jupyter Notebook Integration
 The dashboard interface has been enhanced to include a Jupyter Notebook integration, providing users with a seamless environment for data exploration, model development, and deployment. Leveraging environment variables, users can easily connect to the Ray cluster and access pre-trained model files. Additionally, users can swiftly deploy services using Ray Serve based on the trained models.
-
 This integration streamlines the machine learning workflow, empowering users to perform interactive data analysis, experiment with different models, and deploy services quickly and efficiently. With Jupyter Notebook seamlessly integrated into the dashboard interface, users can seamlessly transition between training, experimentation, and deployment tasks, enhancing productivity and collaboration.
 
 ### Note: Training Tasks
