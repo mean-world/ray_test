@@ -43,7 +43,7 @@ Note: If you intend to enable GPU usage within containers, ensure to install the
 
 To configure the NVIDIA runtime for cri-o, execute the following commands on each k8s node:
 ```
-sudo nvidia-container-runtime configure --runtime=crio
+sudo nvidia-ctk runtime configure --runtime=crio
 sudo systemctl restart crio
 ```
 Additionally, on the master node, execute the following command to deploy the NVIDIA device plugin
